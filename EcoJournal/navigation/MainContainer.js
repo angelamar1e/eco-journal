@@ -36,19 +36,7 @@ export default function MainContainer () {
 
                         return <Ionicons name={iconName} size={size} color={iconColor} />;
                 },
-                tabBarLabel: ({ focused, color }) => {
-                    let labelStyle = {
-                        fontSize: 14, // Set font size
-                        fontWeight: 'bold', // Set font weight
-                        color: focused ? 'green' : color, // Set font color based on focus
-                    };
-
-                    return (
-                        <Text style={labelStyle}>
-                            {route.name}
-                        </Text>
-                    );
-                },
+                tabBarLabel: () => null, //remove labels
                 tabBarStyle: {
                     padding: 10,
                     paddingBottom: 10,
