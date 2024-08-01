@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, View } from 'react-native';
+import CustomTabBar from './CustomTabBar';
 
 // screens
 import HomeScreen from './screens/home';
@@ -51,9 +52,11 @@ export default function MainContainer () {
                 tabBarStyle: {
                     padding: 10,
                     paddingBottom: 10,
-                    height: 60
+                    height: 60,
+                    backgroundColor: '#2A2B33'
                 },
             })}
+            tabBar={(props) => <CustomTabBar {...props} />} // Use custom tab bar
         >
                 <Tab.Screen name={homeName} component={HomeScreen} />
                 <Tab.Screen name={educateName} component={EducateScreen} />
