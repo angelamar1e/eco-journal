@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, View } from 'react-native';
 
 // screens
@@ -20,6 +21,20 @@ export default function MainContainer () {
         <NavigationContainer>
         <Tab.Navigator
             screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                        let iconName;
+                        let iconColor = focused ? 'green' : color;
+                        
+                        if (route.name === homeName) {
+                            iconName = focused ? 'home' : 'home-outline';
+                        } else if (route.name === educateName) {
+                            iconName = focused ? 'book' : 'book-outline';
+                        } else if (route.name === dailyLogName) {
+                            iconName = focused ? 'calendar' : 'calendar-outline';
+                        }
+
+                        return <Ionicons name={iconName} size={size} color={iconColor} />;
+                },
                 tabBarLabel: ({ focused, color }) => {
                     let labelStyle = {
                         fontSize: 14, // Set font size
