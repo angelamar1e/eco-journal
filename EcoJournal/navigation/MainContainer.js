@@ -6,12 +6,12 @@ import { Text, View } from 'react-native';
 import CustomTabBar from './CustomTabBar';
 
 // screens
-import HomeScreen from './screens/home';
+import LandingPageScreen from './screens/LandingPage';
 import EducateScreen from './screens/educate';
 import DailyLogScreen from './screens/daily_log';
 
 // screen names
-const homeName = 'Home'
+const LandingPageName = 'Home';
 const educateName = 'Educate';
 const dailyLogName = 'Daily Log';
 
@@ -26,7 +26,7 @@ export default function MainContainer () {
                         let iconName;
                         let iconColor = focused ? 'green' : color;
                         
-                        if (route.name === homeName) {
+                        if (route.name === LandingPageName) {
                             iconName = focused ? 'home' : 'home-outline';
                         } else if (route.name === educateName) {
                             iconName = focused ? 'book' : 'book-outline';
@@ -46,7 +46,7 @@ export default function MainContainer () {
             })}
             tabBar={(props) => <CustomTabBar {...props} />} // Use custom tab bar
         >
-                <Tab.Screen name={homeName} component={HomeScreen} />
+                <Tab.Screen name={LandingPageName} component={LandingPageScreen} />
                 <Tab.Screen name={educateName} component={EducateScreen} />
                 <Tab.Screen name={dailyLogName} component={DailyLogScreen} />  
             </Tab.Navigator>
