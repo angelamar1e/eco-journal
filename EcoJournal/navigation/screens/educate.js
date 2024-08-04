@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import EducateList from './educateList';
 
 export default function EducateScreen({ navigation }) {
     const [filters, setFilters] = React.useState([
@@ -32,6 +33,7 @@ export default function EducateScreen({ navigation }) {
                     />
                 ))}
             </View>
+            <EducateList/>
         </SafeAreaView>
     );
 }
