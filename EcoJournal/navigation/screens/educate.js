@@ -24,6 +24,7 @@ export default function EducateScreen({ navigation }) {
             <View style={styles.filterContainer}>
                 {filters.map((filter) => (
                     <FilterButton
+                        key={filter.label} 
                         selected={filter === selected}
                         disabled={filter !== selected && selected !== filters[0] && filter !== filters[0]}
                         data={filter}
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     filterButton: {
-        borderRadius: 15,
+        borderRadius: 25,
         padding: 8,
         paddingLeft: 24,
         paddingRight: 24,
@@ -75,5 +76,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
+        marginLeft: 7
     },
 })
