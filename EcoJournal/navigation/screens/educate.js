@@ -10,6 +10,11 @@ export default function EducateScreen({ navigation }) {
     ]);
     const [selected, setSelected] = React.useState(filters[0]);
 
+    const callback = (data) => {
+        if (selected === data) return setSelected(filters[0]);
+        setSelected(data);
+    };
+    
     return (
     <SafeAreaView style={{flex: 1, marginHorizontal: 20}}>
         <TextInput 
