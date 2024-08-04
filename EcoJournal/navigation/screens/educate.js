@@ -1,7 +1,15 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView, TextInput, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function EducateScreen({ navigation }) {
+    const [filters, setFilters] = React.useState([
+        { label: 'ALL' },
+        { label: 'Food' },
+        { label: 'Mobility' },
+        { label: 'Electricity' },
+    ]);
+    const [selected, setSelected] = React.useState(filters[0]);
+
     return (
     <SafeAreaView style={{flex: 1, marginHorizontal: 20}}>
         <TextInput 
