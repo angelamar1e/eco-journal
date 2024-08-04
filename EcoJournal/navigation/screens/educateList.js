@@ -2,12 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import {card} from 'react-native-paper';
 
-const articles = [
-    { id: 1, title: 'Article 1', content: 'Content of Article 1' },
-    { id: 2, title: 'Article 2', content: 'Content of Article 2' },
-    { id: 3, title: 'Article 3', content: 'Content of Article 3' },
-    // sample articles only
-];
+// Sample data with categories
+const articles = {
+    Food: [
+        { id: 1, title: 'Food Article 1', content: 'Content of Food Article 1' },
+        { id: 2, title: 'Food Article 2', content: 'Content of Food Article 2' },
+        { id: 3, title: 'Food Article 3', content: 'Content of Food Article 3' },
+    ],
+    Mobility: [
+        { id: 4, title: 'Mobility Article 1', content: 'Content of Mobility Article 1' },
+        { id: 5, title: 'Mobility Article 2', content: 'Content of Mobility Article 2' },
+        { id: 6, title: 'Mobility Article 3', content: 'Content of Mobility Article 3' },
+    ],
+    Electricity: [
+        { id: 7, title: 'Electricity Article 1', content: 'Content of Electricity Article 1' },
+        { id: 8, title: 'Electricity Article 2', content: 'Content of Electricity Article 2' },
+        { id: 9, title: 'Electricity Article 3', content: 'Content of Electricity Article 3' },
+    ],
+};
 
 const EducateList = () => {
     return (
