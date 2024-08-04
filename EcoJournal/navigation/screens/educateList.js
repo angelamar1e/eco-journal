@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import {card} from 'react-native-paper';
+
 
 // Sample data with categories
 const articles = {
@@ -21,13 +21,22 @@ const articles = {
     ],
 };
 
-const EducateList = () => {
+const EducateList = ({selectedCategory}) => {
     return (
-        <ScrollView horizontal={true} contentContainerStyle={styles.container}>
-            {articles.map((article) => (
-                <View key={article.id} style={styles.card}>
-                    <Text style={styles.title}>{article.title}</Text>
-                    <Text style={styles.content}>{article.content}</Text>
+        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false} >
+            {Object.keys(articles).map((category) => (
+                <View key={category} style={styles.categoryContainer}>
+                    <Text style={styles.categoryTitle}>{category}</Text>
+                    <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScroll} showsHorizontalScrollIndicator={false}>
+                        {articles[category].map((article) => (
+                            <View key={article.id} style={styles.card}>
+                                <View style={styles.cardContent}>
+                                    <Text style={styles.title}>{article.title}</Text>
+                                    <Text style={styles.content}>{article.content}</Text>
+                                </View>
+                            </View>
+                        ))}
+                    </ScrollView>
                 </View>
             ))}
         </ScrollView>

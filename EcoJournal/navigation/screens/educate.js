@@ -33,7 +33,7 @@ export default function EducateScreen({ navigation }) {
                     />
                 ))}
             </View>
-            <EducateList/>
+            <EducateList selectedCategory={selected.label} />
         </SafeAreaView>
     );
 }
