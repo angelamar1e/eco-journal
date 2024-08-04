@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, SafeAreaView, TextInput } from 'react-native';
 
 export default function EducateScreen({ navigation }) {
     return (
-    
+    <SafeAreaView style={{}}>
+        <TextInput placeholder='Search'/>
+    </SafeAreaView>
     );
 }
