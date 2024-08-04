@@ -16,12 +16,22 @@ export default function EducateScreen({ navigation }) {
     };
     
     return (
-    <SafeAreaView style={{flex: 1, marginHorizontal: 20}}>
-        <TextInput 
-            placeholder='Search'
-            style={styles.searchBar}
-        />
-    </SafeAreaView>
+        <SafeAreaView style={{flex: 1, marginHorizontal: 20}}>
+            <TextInput 
+                placeholder='Search'
+                style={styles.searchBar}
+            />
+            <View style={styles.filterContainer}>
+                {filters.map((filter) => (
+                    <FilterButton
+                        selected={filter === selected}
+                        disabled={filter !== selected && selected !== filters[0] && filter !== filters[0]}
+                        data={filter}
+                        callback={callback}
+                    />
+                ))}
+            </View>
+        </SafeAreaView>
     );
 }
 
