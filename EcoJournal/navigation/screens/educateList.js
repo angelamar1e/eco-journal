@@ -7,7 +7,3 @@ const articles = [
     { id: 3, title: 'Article 3', content: 'Content of Article 3' },
     // sample articles only
 ];
-
-const ArticleList = () => {
-    
-}
