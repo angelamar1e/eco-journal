@@ -40,7 +40,7 @@ const FilterButton = ({ callback, selected, disabled, data }) => {
       <TouchableOpacity
         style={[
           styles.filterButton,
-          { backgroundColor: disabled ? 'lightgrey' : (selected ? 'black' : 'white') },
+          { backgroundColor: disabled ? 'lightgrey' : (selected ? '#63B25F' : 'white') },
         ]}
         onPress={() => {
           if (callback && !disabled) {
@@ -63,5 +63,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 25,
         marginTop: 20,
-    }
+    },
+    filterButton: {
+        borderRadius: 15,
+        padding: 8,
+        paddingLeft: 24,
+        paddingRight: 24,
+        marginRight: 8,
+      },
+    filterContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
 })
