@@ -35,6 +35,26 @@ export default function EducateScreen({ navigation }) {
     );
 }
 
+const FilterButton = ({ callback, selected, disabled, data }) => {
+    return (
+      <TouchableOpacity
+        style={[
+          styles.filterButton,
+          { backgroundColor: disabled ? 'lightgrey' : (selected ? 'black' : 'white') },
+        ]}
+        onPress={() => {
+          if (callback && !disabled) {
+            callback(data);
+          }
+        }}
+      >
+        <Text style={{ color: selected ? 'white' : 'black' }}>
+          {data.label}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+  
 const styles = StyleSheet.create({
     searchBar: {
         paddingHorizontal: 20,
