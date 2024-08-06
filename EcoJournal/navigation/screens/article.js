@@ -7,5 +7,11 @@ const ArticlePage = ({ route }) => {
     const [comments, setComments] = React.useState([
         { id: 1, user: 'User1', comment: 'Great article!' },
         { id: 2, user: 'User2', comment: 'Very informative.' },
-    ])};
-    
+    ]);
+
+    const addComment = () => {
+        setComments([...comments, { id: comments.length + 1, user: 'You', comment }]);
+        setComment('');
+    };
+
+};
