@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import EducateList from './educateList';
+import article from './article'
+
+const Stack = createStackNavigator();
 
 export default function EducateScreen({ navigation }) {
     const [filters, setFilters] = React.useState([
