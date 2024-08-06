@@ -7,8 +7,9 @@ import CustomTabBar from './CustomTabBar';
 
 // screens
 import LandingPageScreen from './screens/LandingPage';
-import EducateScreen from './screens/educate';
+import EducateStack from './educateStack';
 import DailyLogScreen from './screens/daily_log';
+
 
 // screen names
 const LandingPageName = 'Home';
@@ -47,7 +48,7 @@ export default function MainContainer () {
             tabBar={(props) => <CustomTabBar {...props} />} // Use custom tab bar
         >
                 <Tab.Screen name={LandingPageName} component={LandingPageScreen} />
-                <Tab.Screen name={educateName} component={EducateScreen} />
+                <Tab.Screen name={educateName} component={EducateStack} />
                 <Tab.Screen name={dailyLogName} component={DailyLogScreen} />  
             </Tab.Navigator>
         </NavigationContainer>
