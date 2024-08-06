@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 
-const App = () => {
 
+export default function DailyLogScreen({ navigation }) {
   const [checkboxStates, setCheckboxStates] = useState({
     ecoAction1: false,
     ecoAction2: false,
@@ -182,5 +182,3 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 });
-
-export default App;
