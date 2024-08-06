@@ -40,3 +40,62 @@ const ArticlePage = ({ route }) => {
         </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flexGrow: 1,
+        padding: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    logButton: {
+        backgroundColor: '#407F3D',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    logButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    content: {
+        fontSize: 16,
+        marginBottom: 20,
+    },
+    sectionTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    comment: {
+        marginBottom: 10,
+    },
+    commentUser: {
+        fontWeight: 'bold',
+    },
+    commentText: {
+        marginLeft: 10,
+    },
+    commentInput: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        borderRadius: 5,
+    },
+    commentButton: {
+        backgroundColor: '#407F3D',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    commentButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+});
