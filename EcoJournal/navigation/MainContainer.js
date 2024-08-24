@@ -8,7 +8,7 @@ import CustomTabBar from './CustomTabBar';
 // screens
 import LandingPageScreen from './screens/LandingPage';
 import EducateStack from './educateStack';
-import DailyLogScreen from './screens/daily_log';
+import DailyLogScreen from './screens/DailyLog';
 
 
 // screen names
