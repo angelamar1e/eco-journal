@@ -1,28 +1,55 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import articles from './sampleData';
+import { SafeAreaView, FlatList, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import sampleData from './sampleData';
 
-const EducateList = ({selectedCategory}) => {
+const EducateList = ({ filteredArticles}) => {
+    const navigation = useNavigation(); // Hook to get navigation object for screen transitions
+    
+    console.log('filteredArticles:', filteredArticles);
+
+    // Render function for each item in the FlatList
+    const renderItem = ({ item }) => (
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('Article', { article: item })} // Navigate to the Article screen on press
+        >
+            <View style={styles.cardContent}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.content} numberOfLines={1}>{item.content}</Text> 
+            </View>
+        </TouchableOpacity>
+    );
+
+    // Check if there are no filtered articles
+    if (!filteredArticles || filteredArticles.length === 0) {
+        return (
+            <View>
+                <Text>No articles available</Text>
+            </View>
+        );
+    }
+
+    // Main render of the component
     return (
-        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false} >
-            {Object.keys(articles).map((category) => (
+        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+            {Object.keys(sampleData).map((category) => (
                 <View key={category} style={styles.categoryContainer}>
                     <Text style={styles.categoryTitle}>{category}</Text>
-                    <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScroll} showsHorizontalScrollIndicator={false}>
-                        {articles[category].map((article) => (
-                            <View key={article.id} style={styles.card}>
-                                <View style={styles.cardContent}>
-                                    <Text style={styles.title}>{article.title}</Text>
-                                    <Text style={styles.content}>{article.content}</Text>
-                                </View>
-                            </View>
-                        ))}
-                    </ScrollView>
+                    <FlatList
+                        data={sampleData[category]}  // Using articles from the current category
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id.toString()}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.horizontalScroll}
+                    />
                 </View>
             ))}
         </ScrollView>
     );
 };
+
 
 // Styles for the component
 const styles = StyleSheet.create({
@@ -44,6 +71,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3,
         justifyContent: 'flex-end',
+        flexDirection: 'row',
     },
     cardContent: {
         flex: 1,
