@@ -1,4 +1,4 @@
-const articles = {
+const sampleData = {
     Food: [
         {
             id: 1,
@@ -20,4 +20,4 @@ const articles = {
     ],
 };
 
-export default articles;
+export default sampleData;
