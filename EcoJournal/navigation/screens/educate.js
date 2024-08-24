@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import EducateList from './educateList';
-import article from './article'
+import ArticlePage from './article';
+import sampleData from './sampleData';
 
 const Stack = createStackNavigator();
 
-export default function EducateScreen({ navigation }) {
-    const [filters, setFilters] = React.useState([
+export default function EducateScreen ({ navigation }) {
+    // State to hold the filter options and the currently selected filter
+    const [filters] = React.useState([
         { label: 'ALL' },
         { label: 'Food' },
         { label: 'Mobility' },
@@ -15,52 +17,47 @@ export default function EducateScreen({ navigation }) {
     ]);
     const [selected, setSelected] = React.useState(filters[0]);
 
+    // Callback function to handle filter selection and reset to 'ALL' if the same filter is selected
     const callback = (data) => {
         if (selected === data) return setSelected(filters[0]);
         setSelected(data);
     };
+
+    // Filter articles based on selected category
+    const filteredArticles = selected.label === 'ALL' ?
+    Object.values(sampleData).flat() : 
+    sampleData[selected.label] || []; // Get articles for the selected category
     
     return (
-        <SafeAreaView style={{flex: 1, marginHorizontal: 20}}>
-            <TextInput 
-                placeholder='Search'
-                style={styles.searchBar}
-            />
-            <View style={styles.filterContainer}>
-                {filters.map((filter) => (
-                    <FilterButton
-                        key={filter.label} 
-                        selected={filter === selected}
-                        disabled={filter !== selected && selected !== filters[0] && filter !== filters[0]}
-                        data={filter}
-                        callback={callback}
-                    />
-                ))}
-            </View>
-            <EducateList selectedCategory={selected.label} />
+      <SafeAreaView style={{ flex: 1 }}>
+          <Stack.Navigator initialRouteName="EducateList">
+              <Stack.Screen name="EducateList" options={{ headerShown: false }}>
+                  {(props) => (
+                      <View style={styles.container}>
+                          <TextInput style={styles.searchBar} placeholder="Search" />
+                            <View style={styles.filterContainer}>
+                                {filters.map((data) => (
+                                    <TouchableOpacity
+                                        onPress={() => callback(data)} // Handle filter button press
+                                        key={data.label}
+                                        style={[
+                                            styles.filterButton,
+                                            selected === data && styles.selectedFilterButton, // Apply selected style
+                                        ]}
+                                    >
+                                        <Text style={styles.filterText}>{data.label}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                            <EducateList navigation={navigation} filteredArticles={filteredArticles} />
+                        </View>
+                    )}
+                </Stack.Screen>
+                <Stack.Screen name="Article" component={ArticlePage} />
+            </Stack.Navigator>
         </SafeAreaView>
     );
 }
-
-const FilterButton = ({ callback, selected, disabled, data }) => {
-    return (
-      <TouchableOpacity
-        style={[
-          styles.filterButton,
-          { backgroundColor: disabled ? 'lightgrey' : (selected ? '#63B25F' : 'white') },
-        ]}
-        onPress={() => {
-          if (callback && !disabled) {
-            callback(data);
-          }
-        }}
-      >
-        <Text style={{ color: selected ? 'white' : 'black' }}>
-          {data.label}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
   
 const styles = StyleSheet.create({
     searchBar: {
@@ -77,6 +74,7 @@ const styles = StyleSheet.create({
         paddingLeft: 24,
         paddingRight: 24,
         marginRight: 8,
+        height: 30,
       },
     filterContainer: {
         flexDirection: 'row',
@@ -84,4 +82,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 7
     },
-})
+    selectedFilterButton: {
+        backgroundColor: '#34C759',
+    },
+    filterText: {
+        color: 'black',
+        height: 15,
+    },
+});
