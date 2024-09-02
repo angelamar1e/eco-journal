@@ -1,186 +1,209 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { useFonts, Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { View, Text, TouchableOpacity, StyleSheet, CheckBox} from 'react-native';
+import { useFonts, Poppins_500Medium, Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 
-const App = () => {
-
-  const [checkboxStates, setCheckboxStates] = useState({
-    ecoAction1: false,
-    ecoAction2: false,
-    ecoAction3: false,
-  });
-
+const DailyLog = () => {
   const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
+    Poppins_500Medium,
     Poppins_700Bold,
     Poppins_600SemiBold,
   });
+
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-PH', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  
+  const [isDone, setIsDone] = useState(false);
+  const [ecoActions, setEcoActions] = useState([false, false, false]); 
+
+  const handleToggleDone = () => {
+    setIsDone(!isDone);
+  };
+
+  const handleCheckboxChange = (index) => {
+    const updatedActions = [...ecoActions];
+    updatedActions[index] = !updatedActions[index];
+    setEcoActions(updatedActions);
+  };
 
   if (!fontsLoaded) {
     return null;
   }
 
-  const handleCheckboxChange = (key) => {
-    setCheckboxStates(prevState => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }));
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: '#036B00', textAlign: 'left' }]}>Daily Log</Text>
-      </View>
-
-      <View style={[styles.rectangle, { backgroundColor: '#036B00' }]}>
-        <View style={styles.textContainer}>
-          <Text style={[styles.subheading1, { color: 'white' }]}>
-            Carbon Reduction Goal:
-          </Text>
-          <View style={[styles.row, {gap: 65, alignItems: 'flex-start'}]}>
-            <Text style={[styles.title, { color: 'white' }]}>
-              1000 g
-            </Text>
-            <SetGoalButton
-              label="Set Goal"
-              disabled={false}
-            />
-          </View>    
-        </View>   
-      </View>
-
-      <View style={styles.header}>
-        <Text style={styles.title}>Eco-Actions</Text>
+      <View style={styles.headerbackground}>
+        <Text style={styles.pagetitle}> Daily Log </Text>
+        <Text style={styles.pagesubtitle}>{formattedDate}</Text>
       </View>
 
       <View style={styles.rectangle}>
-        <Checkbox
-          checked={checkboxStates.ecoAction1}
-          onChange={() => handleCheckboxChange('ecoAction1')}
-          label="Eco-Action#1"
-        />
+        <Text style={[styles.sectiontitle, {color: '#000000'}]}>Carbon Reduction Goal</Text>
+        <Text style={styles.figures}>000 g</Text>
+        
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <Text style={styles.text}>Start: </Text>
+            <Text style={styles.text}>End: </Text>
+          </View>
+          <TouchableOpacity style={[styles.button, { marginRight: 10, backgroundColor: '#407F3D'}]}>
+            <Text style={[styles.text, { textAlign: 'center', color: '#FFFFFF'}]}>Set a goal</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
+      <View style={styles.subcontainer}>
+        <Text style={[styles.sectiontitle, { textAlign: 'left', marginTop: 10}]}>Customize your Daily Log</Text>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: isDone ? '#F6F5F3' : '#34C759' }]}
+            onPress={() => setIsDone(false)}
+          >
+              <Text style={[styles.text, { textAlign: 'center', color: isDone ? '#000000' : '#FFFFFF' }]}>To-Do</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: isDone ? '#34C759' : '#F6F5F3' }]}
+            onPress={handleToggleDone}
+          >
+              <Text style={[styles.text, { textAlign: 'center', color: isDone ? '#FFFFFF' : '#000000' }]}>Done</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={[styles.button, { marginLeft: 115, backgroundColor: '#407F3D'}]}>
+              <Text style={[styles.text, { textAlign: 'center', color: '#FFFFFF'}]}>Add an action</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginTop: 20 }}>
+          {ecoActions.map((checked, index) => (
+            <View style={styles.row} key={index}>
+              <View style={styles.placeholder}>
+                <CheckBox
+                  value={checked}
+                  onValueChange={() => handleCheckboxChange(index)}
+                  tintColors={{ true: '#34C759', false: '#000' }}
+                />
+                
+                <Text style={[styles.text, { marginLeft: 10 }]}>Eco-Action #{index + 1}</Text>
+              </View>
+                
+            </View>
+          ))}
+        </View>
+
+        <Text style={[styles.sectiontitle, { textAlign: 'left', marginTop: 10}]}>Reflection Entries</Text>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#407F3D'}]}>
+            <Text style={[styles.text, { textAlign: 'center', color: '#FFFFFF'}]}>Write a reflection entry</Text>
+        </TouchableOpacity>
+        <View style={[styles.placeholder, { marginTop: 10 }]}>
+          <Text style={[styles.text, { marginLeft: 10 }]}>Date</Text>
+        </View>
+
       </View>
 
-      <View style={styles.rectangle}>
-        <Checkbox
-          checked={checkboxStates.ecoAction2}
-          onChange={() => handleCheckboxChange('ecoAction2')}
-          label="Eco-Action#2"
-        />
-      </View>
 
-      <View style={styles.rectangle}>
-        <Checkbox
-          checked={checkboxStates.ecoAction3}
-          onChange={() => handleCheckboxChange('ecoAction3')}
-          label="Eco-Action#3"
-        />
-      </View>
-
+      
     </View>
   );
 }
 
-const SetGoalButton = ({ label, disabled }) => {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.setGoalButton, 
-        { backgroundColor: disabled ? 'lightgrey' : '#407F3D' },
-      ]}  
-      disabled={disabled}
-    >
-      <Text style={{ fontFamily: 'Poppins_600SemiBold', color: 'white' }}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const Checkbox = ({ label, checked, onChange }) => {
-  return (
-    <TouchableOpacity 
-      style={styles.row} 
-      onPress={() => onChange(!checked)}
-    >
-      <View style={[styles.checkbox, checked && styles.checked]} />
-      <Text style={[styles.text, {alignItems:'flex-end'}]}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     padding: 20,
     alignItems: 'center',
   },
-  header: {
-    paddingVertical: 15,
-    width: '90%',
-    alignItems: 'flex-start',
-    marginTop: 20,
+
+  subcontainer: {
+    padding: 20,
+    width: 400,
   },
+
+  headerbackground: {
+    width: 400,
+    height: 250,
+    backgroundColor: '#407F3D',
+    borderRadius: 10,
+    position: 'relative',
+  },
+
+  pagetitle: {
+    fontFamily: 'Poppins_700Bold',
+    fontSize: 25,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginTop: 70,
+  },
+
+  pagesubtitle: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 12,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+
   rectangle: {
-    padding: 15,
-    width: '90%',
-    borderRadius: 12,
+    width: 357,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    marginTop: -100, 
+    padding: 20, 
   },
-  textContainer: {
-    flex: 1,
-  }, 
+
+  sectiontitle: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 20,
+    marginBottom: 10,
+    color: '#000000'
+  },
+
+  figures: {
+    fontFamily: 'Poppins_700Bold',
+    fontSize: 25,
+    marginBottom: 10,
+  },
+
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#000',
-    marginRight: 10,
-    backgroundColor: 'transparent',
+
+  column: {
+    flex: 1,
   },
-  checked: {
-    backgroundColor: '#4CAF50',
-    borderColor: '#4CAF50',
-  },
+
   text: {
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 14,
-    color: '#0D0D0D',
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 12,
   },
-  title: {
-    fontFamily: 'Poppins_700Bold',
-    fontSize: 24,
-    marginBottom: 5,
+
+  button: {
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 100,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
-  subheading1: {
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  setGoalButton: {
-    borderRadius: 25,
-    padding: 8,
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginRight: 8,
+
+  placeholder: {
+    backgroundColor: '#F6F5F3',
+    padding: 10,
+    borderRadius: 5,
+    marginLeft: 10,
+    marginBottom: 10,
+    flex: 1,
+    flexDirection: 'row',
   },
 });
 
-export default App;
+export default DailyLog;
